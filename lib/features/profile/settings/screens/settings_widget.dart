@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lovemug_app/core/constants/variables.dart';
 
 
 
@@ -10,6 +11,51 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool doNotDisturb = false;
   bool isPoliciesExpanded = false;
+  Future<void> _softDeleteAccount(BuildContext context) async {
+    // Show confirmation dialog
+    bool? confirmed = await _showConfirmationDialog(context);
+
+    if (confirmed == true) {
+      // Here you can perform your soft delete logic, for example:
+      // 1. Mark the account as deleted in your database (e.g., "isDeleted": true)
+      // 2. Update UI to reflect the deactivation
+
+      // Example of a message after account deletion
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Your account has been deactivated."),
+      ));
+
+      // Optionally navigate the user to a different screen or log them out
+      // Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
+
+  // Show confirmation dialog for account deletion
+  Future<bool?> _showConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Account Deletion'),
+          content: Text('Are you sure you want to deactivate your account?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // User canceled the delete
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // User confirmed the delete
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +112,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildSimpleListTile(String title, {Color textColor = Colors.black}) {
     return ListTile(
       // leading: Icon(icon, color: Colors.grey),
-      title: Text(title, style: TextStyle(fontSize: 16, color: textColor)),
+      title: Text(title, style: poppinsTextStyle(fontSize: 16, color: textColor)),
       onTap: () {
+        if(title=='Delete Account'){
+          _softDeleteAccount(context);
+
+
+        }
         // Implement functionality
       },
     );
@@ -79,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: ExpansionTile(
-        title: Text("Our Policies", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        title: Text("Our Policies", style: poppinsTextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         initiallyExpanded: isPoliciesExpanded,
         onExpansionChanged: (expanded) {
           setState(() {
@@ -102,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListTile(
       leading: Icon(Icons.circle, size: 8, color: Colors.black), // Small bullet point
 
-      title: Text("$title", style: TextStyle(fontSize: 16)),
+      title: Text("$title", style: poppinsTextStyle(fontSize: 16)),
       onTap: () {
         // Navigate to the policy page
       },

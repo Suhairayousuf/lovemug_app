@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'features/Home/screens/navigation_page.dart';
+import 'features/auth/google_sign_in.dart';
 
 // import 'features/Home/screen/splash_screen.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-       home: NavigationBarPage(),
+       home: GoogleSignInPage(),
 
     );
   }

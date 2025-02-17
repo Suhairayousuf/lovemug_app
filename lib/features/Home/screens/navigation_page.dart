@@ -343,8 +343,10 @@ import 'package:flutter/material.dart';
 import 'package:lovemug_app/features/profile/profile_widget.dart';
 
 
+import '../../../core/constants/variables.dart';
 import '../../../core/pallette/pallete.dart';
-import '../../chats/chat_widget.dart';
+import '../../call_history/screens/call_history.dart';
+import '../../chats/screens/chat_widget.dart';
 import 'home_widget.dart';
 
 
@@ -374,7 +376,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
 
     HomeWidget(),
     ChatWidget(),
-    Container(),
+    CallHistoryScreen(),
     ProfileWidget(),
 
   ];
@@ -388,6 +390,8 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+
 
 
     return Scaffold(

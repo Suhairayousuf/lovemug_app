@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lovemug_app/core/constants/variables.dart';
 
 
 
@@ -16,12 +17,34 @@ class _BlockedListScreenState extends State<BlockedListScreen> {
   ];
 
   void _unblockUser(int index) {
-    setState(() {
-      blockedUsers.removeAt(index);
-    });
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Unblock User"),
+          content: Text("Are you sure you want to unblock ${blockedUsers[index].name}?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // Close the dialog
+              child: Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  blockedUsers.removeAt(index);
+                });
+                Navigator.pop(context); // Close dialog
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("User unblocked successfully!")),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("User unblocked successfully!")),
+                );
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: Text("Unblock"),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -67,7 +90,7 @@ class _BlockedListScreenState extends State<BlockedListScreen> {
                   backgroundColor: Colors.red,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
-                child: Text("Unblock", style: TextStyle(color: Colors.white)),
+                child: Text("Unblock", style: poppinsTextStyle(color: Colors.white)),
               ),
             ),
           );

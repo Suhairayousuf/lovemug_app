@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lovemug_app/core/constants/variables.dart';
+import 'package:lovemug_app/core/pallette/pallete.dart';
 
 
 
@@ -15,9 +17,10 @@ class TalktimeOffersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Talktime Recharge Offers"),
+        backgroundColor: primaryColor,
+        title: Text("Talktime Recharge Offers",style: poppinsTextStyle(color: Colors.white,fontSize: width*0.05),),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -35,7 +38,7 @@ class TalktimeOffersScreen extends StatelessWidget {
               leading: Icon(Icons.local_offer, color: Colors.purple, size: 35),
               title: Text(
                 "₹${offer.amount} Recharge",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: poppinsTextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
